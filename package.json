@@ -1,7 +1,7 @@
 {
-  "name": "kepler.gl",
-  "author": "Shan He <shan@uber.com>",
-  "version": "3.0.0",
+  "name": "keplergl_mcsdm",
+  "author": "Shan He <shan@uber.com>/ remideverdiere",
+  "version": "0.0.1",
   "description": "kepler.gl is a webgl based application to visualize large scale location data in the browser",
   "license": "MIT",
   "main": "dist/index.js",
@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/keplergl/kepler.gl.git"
+    "url": "https://github.com/Remivdr/kepler.gl.git"
   },
   "scripts": {
     "bootstrap": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn",
@@ -262,7 +262,8 @@
   },
   "maintainers": [
     "Shan He <heshan0131@gmail.com>",
-    "Giuseppe Macri <gmacri@uber.com>"
+    "Giuseppe Macri <gmacri@uber.com>",
+    "remideverdiere"
   ],
   "volta": {
     "node": "18.18.2",

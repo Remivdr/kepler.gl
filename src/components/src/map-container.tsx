@@ -996,7 +996,7 @@ export default function MapContainerFactory(
             {...bottomMapContainerProps}
             ref={this._setMapboxMap}
           >
-            <ScaleControl maxWidth={200} style={{marginLeft: 20}} unit={'nautical'} />
+            <ScaleControl maxWidth={250} style={{marginLeft: 20}} unit={'nautical'} />
           </MapComponent>
         )
       });
