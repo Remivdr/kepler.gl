@@ -14,7 +14,7 @@
     "visualization",
     "deck.gl"
   ],
-  "private": true,
+  "private": false,
   "workspaces": [
     "./src/types",
     "./src/constants",
