@@ -992,6 +992,7 @@ export default function MapContainerFactory(
           <MapComponent
             key="bottom"
             {...mapProps}
+            maxPitch={85}
             mapStyle={mapStyle.bottomMapStyle ?? EMPTY_MAPBOX_STYLE}
             {...bottomMapContainerProps}
             ref={this._setMapboxMap}

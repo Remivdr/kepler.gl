@@ -5,6 +5,7 @@ import {Field, Millisecond} from './types';
 
 export type MapState = {
   pitch: number;
+  maxPitch: number;
   bearing: number;
   latitude: number;
   longitude: number;
@@ -430,6 +431,7 @@ export type Viewport = {
   pitch?: number;
   /**  Map rotation in degrees (0 means north is up) */
   bearing?: number;
+  maxPitch: number;
   /**  Latitude center of viewport on map in mercator projection */
   latitude?: number;
   /**  Longitude Center of viewport on map in mercator projection */

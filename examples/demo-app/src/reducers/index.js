@@ -5,20 +5,21 @@ import {combineReducers} from 'redux';
 import {handleActions} from 'redux-actions';
 
 import keplerGlReducer, {combinedUpdaters, uiStateUpdaters} from '@kepler.gl/reducers';
-import {processGeojson, processRowObject, processArrowTable} from '@kepler.gl/processors';
+import {processArrowTable, processGeojson, processRowObject} from '@kepler.gl/processors';
 import KeplerGlSchema from '@kepler.gl/schemas';
-import {EXPORT_MAP_FORMATS} from '@kepler.gl/constants';
+import {EXPORT_MAP_FORMATS, THREE_D_BUILDING_LAYER_GROUP_SLUG} from '@kepler.gl/constants';
 
 import {
   INIT,
   LOAD_MAP_SAMPLE_FILE,
-  LOAD_REMOTE_RESOURCE_SUCCESS,
   LOAD_REMOTE_RESOURCE_ERROR,
+  LOAD_REMOTE_RESOURCE_SUCCESS,
   SET_SAMPLE_LOADING_STATUS
 } from '../actions';
 
 import {CLOUD_PROVIDERS_CONFIGURATION} from '../constants/default-settings';
 import {generateHashId} from '../utils/strings';
+import {configstore} from '../stores/config.store';
 
 // INITIAL_APP_STATE
 const initialAppState = {
@@ -53,7 +54,64 @@ export const appReducer = handleActions(
 );
 
 const {DEFAULT_EXPORT_MAP} = uiStateUpdaters;
-
+export const DEFAULT_LAYER_GROUPS = [
+  {
+    slug: 'label',
+    filter: ({id}) => id.match(/(?=(label|place-|poi-))/),
+    defaultVisibility: true,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: 'road',
+    filter: ({id}) => id.match(/(?=(road|railway|tunnel|street|bridge))(?!.*label)/),
+    defaultVisibility: true,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: 'border',
+    filter: ({id}) => id.match(/border|boundaries|boundary/),
+    defaultVisibility: false,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: 'building',
+    filter: ({id}) => id.match(/building/),
+    defaultVisibility: true,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: 'water',
+    filter: ({id}) => id.match(/(?=(water|stream|ferry))/),
+    defaultVisibility: true,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: 'land',
+    filter: ({id}) => id.match(/(?=(parks|landcover|industrial|sand|hillshade))/),
+    defaultVisibility: true,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: false
+  },
+  {
+    slug: THREE_D_BUILDING_LAYER_GROUP_SLUG,
+    filter: () => false,
+    defaultVisibility: false,
+    isVisibilityToggleAvailable: true,
+    isMoveToTopAvailable: true,
+    isColorPickerAvailable: true
+  }
+];
 // combine app reducer and keplerGl reducer
 // to mimic the reducer state of kepler.gl website
 const demoReducer = combineReducers({
@@ -62,6 +120,18 @@ const demoReducer = combineReducers({
     // In order to provide single file export functionality
     // we are going to set the mapbox access token to be used
     // in the exported file
+    mapStyle: {
+      mapStyles: configstore.mapStyles,
+      styleType: 'dark'
+    },
+    mapState: {
+      latitude: 42,
+      longitude: 5,
+      maxPitch: 85,
+      zoom: 3,
+      pitch: 0,
+      dragRotate: true
+    },
     uiState: {
       exportMap: {
         ...DEFAULT_EXPORT_MAP,

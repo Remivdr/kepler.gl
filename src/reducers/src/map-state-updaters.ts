@@ -206,8 +206,8 @@ export const togglePerspectiveUpdater = (
   const newState = {
     ...state,
     ...{
-      pitch: state.dragRotate ? 0 : 50,
-      bearing: state.dragRotate ? 0 : 24
+      pitch: state.dragRotate ? 0 : 85,
+      bearing: state.dragRotate ? 0 : 25
     },
     dragRotate: !state.dragRotate
   };
@@ -463,7 +463,8 @@ export function pickViewportPropsFromMapState(state: MapState): Viewport {
     'dragRotate',
     'minZoom',
     'maxZoom',
-    'maxBounds'
+    'maxBounds',
+    'maxPitch'
   ]);
 }
 
@@ -480,6 +481,9 @@ function updateViewport(originalViewport: Viewport, viewportUpdates: Viewport): 
     ...(definedProps(viewportUpdates) || {})
   };
 
+  if (newViewport.maxPitch) {
+    newViewport.maxPitch = 85;
+  }
   // Make sure zoom level doesn't go bellow minZoom if defined
   if (newViewport.minZoom && newViewport.zoom && newViewport.zoom < newViewport.minZoom) {
     newViewport.zoom = newViewport.minZoom;

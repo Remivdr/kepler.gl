@@ -1,0 +1,6 @@
+{
+  "url_dark": "http://0.0.0.0:8090/styles/test-style/style.json",
+  "url_dark_icon": "http://0.0.0.0:8090/styles/test-style/0/0/0.png",
+  "url_light": "http://0.0.0.0:8090/styles/klokantech-basic/style.json",
+  "url_light_icon": "http://0.0.0.0:8090/styles/test-style/0/0/0.png"
+}
