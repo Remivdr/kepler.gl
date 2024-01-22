@@ -11,11 +11,6 @@ import {createSelector, Selector} from 'reselect';
 import maplibregl from 'maplibre-gl';
 import {useDroppable} from '@dnd-kit/core';
 import debounce from 'lodash.debounce';
-import {GeoJsonLayer} from '@deck.gl/layers';
-
-import {BitmapLayer} from '@deck.gl/layers';
-import {TileLayer} from '@deck.gl/geo-layers';
-import {IconLayer} from '@deck.gl/layers';
 
 import {MapStateActions, UIStateActions, VisStateActions} from '@kepler.gl/actions';
 
@@ -824,9 +819,9 @@ export default function MapContainerFactory(
             controller={
               isInteractive
                 ? {
-                    doubleClickZoom: !isEditorDrawingMode,
-                    dragRotate: this.props.mapState.dragRotate
-                  }
+                  doubleClickZoom: !isEditorDrawingMode,
+                  dragRotate: this.props.mapState.dragRotate
+                }
                 : false
             }
             initialViewState={internalViewState}
@@ -898,6 +893,7 @@ export default function MapContainerFactory(
         this._updateMapboxLayers();
       }
     }
+
     _onViewportChangePropagateDebounced = debounce(() => {
       const viewState = this.context?.getInternalViewState(this.props.index);
       onViewPortChange(
@@ -992,7 +988,6 @@ export default function MapContainerFactory(
           <MapComponent
             key="bottom"
             {...mapProps}
-            maxPitch={85}
             mapStyle={mapStyle.bottomMapStyle ?? EMPTY_MAPBOX_STYLE}
             {...bottomMapContainerProps}
             ref={this._setMapboxMap}
